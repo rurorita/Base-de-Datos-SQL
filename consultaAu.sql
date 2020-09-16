@@ -18,3 +18,10 @@ WHERE distribuidores.ciudad LIKE 'LAS%';
 
 -- 4. Realizar una consulta donde me indique las veces que ha sido alquilado cada coche
 SELECT matricula, COUNT(*) AS veces_alquilado FROM alquileres GROUP BY 1;
+
+-- 7. Ver una lista donde me indique lo que he facturado en cada mes
+SELECT MONTH(fecha_entrada) AS meses, (fecha_entrada-fecha_salida)*precio_diario AS facturado_cada_mes
+FROM alquileres
+INNER JOIN flota ON flota.matricula=alquileres.matricula
+GROUP BY MONTH(fecha_entrada)
+ORDER BY meses;
